@@ -1,2 +1,3 @@
 # angular-book
-A book about angular development
+
+A book about angular development.
