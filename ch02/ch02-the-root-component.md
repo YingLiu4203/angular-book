@@ -74,3 +74,36 @@ button {
 If you keep your browser open, all changes are reflected in your browser lively. You should have the following view:
 
 ![Tour of Heroes Page](./ch02-1.png)
+
+## 4 The Component Class
+
+The component class file `app.component.ts` has the following content:
+
+```ts
+import { Component } from '@angular/core'
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  title = 'Tour of Heroes'
+}
+```
+
+The first line imports `Component` class defined in an Angular package `@angular/core`.
+
+The `@Component({...})` has a special prefix `@` before the class name. It means that the class is a decorator. Decorator is a language feature in TypeScript. A decorator is used to provide metadata to other classes/functions/properties. As shown above, its parameters provide the `selector`, `templateUrl` and `styleUrls` to the `AppComponent`.
+
+The `selector` specifies the html tag for this component to be used. Because this is the root component, it is used in the `src/index.html`. The `src/index.html` has the following content:
+
+```html
+<body>
+  <app-root></app-root>
+</body>
+```
+
+It is the only html tag in the body.
+
+The `templateUrl` points to the html template file. The `styleUrls` points to a list of css files.

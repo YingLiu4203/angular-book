@@ -48,7 +48,9 @@ In html, the `<ul>` and `<li>` are used to display an unordered list of items. A
 </ul>
 ```
 
-Similar to JavaScript `for` statement, the `*ngFor` create a `<li>` element for each hero in the list of hereos. The prefix `*` in `*ngFor` means that this directive (will be defined and explained later) changes the html DOM structure -- it repeats an element.
+Similar to JavaScript `for` statement, the `*ngFor` create a `<li>` element for each hero in the list of hereos. `ngFor` is a an Angular directive. A directive, like a component, add some functions to the html template like repeatation, condition and more.
+
+The prefix `*` in `*ngFor` means that this directive changes the html DOM structure -- it repeatly adds elements to the current page.
 
 ## Add Local Styles
 

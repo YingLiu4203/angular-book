@@ -132,6 +132,8 @@ import { HeroesComponent } from './heroes/heroes.component'
 export class AppModule {}
 ```
 
+The `NgModule` is another decorator that provides metadata for an Angular module.
+
 Now the page should look like the following:
 
 ![Hero details two-way](./ch03-2.png)
