@@ -2,9 +2,15 @@
 
 ## 1 Project Files
 
-The Angular CLI generates several folders and a number of files including source code, enviornment settings, testing and etc. The [Angular Getting Started Document](https://angular.io/guide/quickstart) describes each file in detail.
+The new Angular project is create in a `angular-tour-of-heroes` foler -- the name specified in the `ng new` command. In this folder, the Angular CLI generates several folders and a number of files including source code, enviornment settings, testing and etc.
 
-The built-in web server, started by the `ng serve` command, watches project changes and will rebuild the project when there is a change.
+As a regular Node.js project, the required packages are defined in `package.json` file and all packages are installed in the `node_modules` folder.
+
+Angular CLI creates a local git repository and add a `.gitignore` file that specifies files and folders ignored by git.
+
+You can ignore most files except those in `src` folder when you are a beginner Angular developer.
+
+The built-in web server, started by the `ng serve` command, watches project source code changes and will rebuild the project when there is a change.
 
 ## 2 The Root Component
 
@@ -41,7 +47,7 @@ Replace the content of the `app.component.html` to have the following content:
 
 The double curly braces in `{{title}}` means that the `title` is a TS expression, evaluate it and display its output in its place. It turns out that `title` is a property of the component class and its value `'Tour of Heroes'` is used as the content of the HTML `h1` tag.
 
-Edit the `src/styles.css` file to have the following styles.
+Edit the `src/app/app.component.css` file to have the following styles.
 
 ```css
 /* Application-wide Styles */
@@ -49,25 +55,6 @@ h1 {
   color: #369;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 250%;
-}
-h2,
-h3 {
-  color: #444;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
-}
-body {
-  margin: 2em;
-}
-body,
-input[text],
-button {
-  color: #888;
-  font-family: Cambria, Georgia;
-}
-/* everywhere else */
-* {
-  font-family: Arial, Helvetica, sans-serif;
 }
 ```
 
@@ -96,7 +83,7 @@ The first line imports `Component` class defined in an Angular package `@angular
 
 The `@Component({...})` has a special prefix `@` before the class name. It means that the class is a decorator. Decorator is a language feature in TypeScript. A decorator is used to provide metadata to other classes/functions/properties. As shown above, its parameters provide the `selector`, `templateUrl` and `styleUrls` to the `AppComponent`.
 
-The `selector` specifies the html tag for this component to be used. Because this is the root component, it is used in the `src/index.html`. The `src/index.html` has the following content:
+The `selector` specifies the html tag for this component to be used. Because this is the root component, it is used in the `src/index.html`. It is not a suprise that the `src/index.html` file only has the `app-root` element in its `<body>` element:
 
 ```html
 <body>
@@ -104,6 +91,4 @@ The `selector` specifies the html tag for this component to be used. Because thi
 </body>
 ```
 
-It is the only html tag in the body.
-
-The `templateUrl` points to the html template file. The `styleUrls` points to a list of css files.
+The `templateUrl` points to the html template file of this component. The `styleUrls` points to a list of css files.

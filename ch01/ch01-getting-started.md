@@ -32,13 +32,15 @@ Getting started with Angular is an easy 3-step process.
 
 Make sure you have Node.js installed and available with commands `node -v` and `npm -v`. Angular nees Node.js version v8.x or greater, npm version 5.x or greater.
 
-Then open a terminal and install the Angular CLI globally with command: `npm install -g @angular/cli`. Use `ng -v` to verify that it is installed successfuly.
+Then open a terminal and install the Angular CLI globally with command: `npm install -g @angular/cli`. Use `ng version` to verify that it is installed successfuly.
 
 ### Step 2. Create a new project
 
-Use `ng new angular-tour-of-heroes` will create a new web project. The project is a client-side application with default settings and a sample home page in a newly-created folder. The folder has the same name as the new project name. The new project name is the string after the `ng new` command. In a real project, you may want to change the `angular-tour-of-heroes` to a more meaningful name.
+Use `ng new angular-tour-of-heroes` will create a new web project. Answer `N` (No) to not add Angular routing and select `CSS` as the stylesheet format.
 
-The command not only
+The project is a client-side application with default settings and a sample home page in a newly-created folder. The folder has the same name as the new project name. The new project name is the string after the `ng new` command. In a real project, you may want to change the `angular-tour-of-heroes` to a more meaningful name.
+
+The command not only creates all folder/files, but also install NPM packages required by an Angular application.
 
 ### Step 3. Run the application
 
