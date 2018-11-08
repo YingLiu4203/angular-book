@@ -6,7 +6,7 @@ In this chapter, you add a new component that is used by the root component to d
 
 An Angular component usually has three files that work togerther to define a view and its behaviors. To create a new component, it is easier to use the Angular CLI than to create them manually.
 
-Run `ng generate component heroes`, the command create a new folder `src/app/heroes/` and generates four new files in the folder. In addition to the component class file `heroes.component.ts`, html file `heroes.component.html`, and css file `heroes.component.css`, there is a file named `heroes.component.spec.ts`. It is a unit test file that you can delete and ignore now.
+Run `ng generate component heroes`, the command create a new folder `src/app/heroes/` and generates four new files in the folder. In addition to the component class file `heroes.component.ts`, html file `heroes.component.html`, and css file `heroes.component.css`, there is a file named `heroes.component.spec.ts`. A file with postfix of `.spec.ts` is a unit test file. You don't use it now and can delete it.
 
 ## 2 Create a Hero Class
 
