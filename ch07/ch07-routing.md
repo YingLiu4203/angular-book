@@ -90,27 +90,32 @@ Use `ng g c dashboard` to create a new dashboard component. The template file ha
 
 ```html
 <h3>Top Heroes</h3>
-<div class="grid grid-pad">
-  <a *ngFor="let hero of heroes" class="col-1-4">
-    <div class="module hero"><h4>{{hero.name}}</h4></div>
-  </a>
-</div>
+<ul>
+  <li *ngFor="let hero of heroes"><a routerLink="/detail/{{hero.id}}">{{ hero.name }}</a></li>
+</ul>
 ```
 
 The dashboard component class has the following code:
 
 ```ts
+import { Component, OnInit } from '@angular/core'
+import { Hero } from '../hero'
+import { HeroService } from '../hero.service'
+import { Observable } from 'rxjs'
+
+@Component({
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css'],
+})
 export class DashboardComponent implements OnInit {
-  heroes: Hero[] = []
+  heroes: Hero[]
 
   constructor(private heroService: HeroService) {}
 
   ngOnInit() {
-    this.getHeroes()
-  }
-
-  getHeroes(): void {
-    this.heroService.getHeroes().subscribe(heroes => (this.heroes = heroes.slice(1, 5)))
+    const heroes$: Observable<Hero[]> = this.heroService.getHeroes()
+    heroes$.subscribe(hs => (this.heroes = hs.slice(1, 5)))
   }
 }
 ```

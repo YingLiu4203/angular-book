@@ -82,8 +82,8 @@ To use the data, subscribe to the observable in the heroes component class as th
 
 ```ts
 getHeroes(): void {
-  Observable<Hero[]> heors$ = this.heroService.getHeroes();
-  heros$.subscribe(heroes => this.heroes = heroes);
+  const heors$ = this.heroService.getHeroes();
+  heros$.subscribe(heroes => this.heroes = heroes)
 }
 ```
 
@@ -184,12 +184,8 @@ The `src/app/messages/messages.component.html` has the following content:
 
 ```html
 <div *ngIf="messageService.messages.length">
-
   <h2>Messages</h2>
-  <button class="clear"
-          (click)="messageService.clear()">clear</button>
-  <div *ngFor='let message of messageService.messages'>
-    {{message}}
-  </div>
+  <button class="clear" (click)="messageService.clear()">clear</button>
+  <div *ngFor="let message of messageService.messages">{{message}}</div>
 </div>
 ```
