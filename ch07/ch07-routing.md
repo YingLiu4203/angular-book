@@ -123,7 +123,8 @@ export class DashboardComponent implements OnInit {
 Now add a dashboard link to the root component template, the `src/app/app.component.html` file has the following code:
 
 ```html
-<nav><a routerLink="/dashboard">Dashboard</a> <a routerLink="/heroes">Heroes</a></nav>
+<h1>{{ title }}</h1>
+<nav><a routerLink="/heroes">Heroes</a> &nbsp; &nbsp; <a routerLink="/dashboard">Dashboard</a></nav>
 <router-outlet></router-outlet>
 ```
 
@@ -146,52 +147,69 @@ import { HeroDetailComponent }  from './hero-detail/hero-detail.component'
 Add links in `src/app/dashboard/dashboard.component.html` as the following:
 
 ```html
-<a *ngFor="let hero of heroes" routerLink="/detail/{{hero.id}}">
-  <div><h4>{{hero.name}}</h4></div>
-</a>
+<h3>Top Heroes</h3>
+<ul>
+  <li *ngFor="let hero of heroes"><a routerLink="/detail/{{hero.id}}">{{ hero.name }}</a></li>
+</ul>
 ```
 
 Change `src/app/heroes/heroes.component.html` as the following:
 
 ```html
-<ul class="heroes">
+<h2>My Heroes</h2>
+<ul>
   <li *ngFor="let hero of heroes">
-    <a routerLink="/detail/{{hero.id}}"> <span class="badge">{{hero.id}}</span> {{hero.name}} </a>
+    <a routerLink="/detail/{{hero.id}}"> {{ hero.id }} {{ hero.name }}</a>
   </li>
 </ul>
 ```
 
-Also remove `onSelect()` and `selectedHero` from the heroes component.
+Also remove `onSelect()` and `selectedHero` from the heroes component class file. The class has the following content:
+
+```ts
+import { Component, OnInit } from '@angular/core'
+import { Hero } from '../hero'
+import { HeroService } from '../hero.service'
+import { Observable } from 'rxjs'
+
+@Component({
+  selector: 'app-heroes',
+  templateUrl: './heroes.component.html',
+  styleUrls: ['./heroes.component.css'],
+})
+export class HeroesComponent implements OnInit {
+  heroes: Hero[]
+
+  constructor(private heroService: HeroService) {}
+
+  ngOnInit() {
+    const heroes$: Observable<Hero[]> = this.heroService.getHeroes()
+    heroes$.subscribe(hs => (this.heroes = hs))
+  }
+}
+```
 
 ## 6 Get Router Parameter
 
 So far the hero id is embedded in the `routeLink`. A user may also input a url like `~/detail/11` in the browser's address bar. In `HeroDetailComponent`, you need to retrieve the hero id from the url using the following code:
 
 ```ts
-constructor(
-  private route: ActivatedRoute,
-  private heroService: HeroService,
-  private location: Location
-) {}
+ngOnInit() {
+    this.getHero()
+  }
 
-ngOnInit(): void {
-  this.getHero();
-}
-
-getHero(): void {
-  const id = +this.route.snapshot.paramMap.get('id');
-  this.heroService.getHero(id)
-    .subscribe(hero => this.hero = hero);
-}
+  private getHero() {
+    const id = this.route.snapshot.paramMap.get('id')
+    const getHero$ = this.heroService.getHero(Number(id))
+    getHero$.subscribe(hero => (this.hero = hero))
+  }
 ```
 
 Open HeroService and add this getHero() method:
 
 ```ts
 getHero(id: number): Observable<Hero> {
-  // TODO: send the message _after_ fetching the hero
-  this.messageService.add(`HeroService: fetched hero id=${id}`);
-  return of(HEROES.find(hero => hero.id === id));
+  return of(HEROES.find(hero => hero.id === id))
 }
 ```
 
@@ -210,5 +228,44 @@ Add the following code to the component class file:
 ```ts
 goBack(): void {
   this.location.back();
+}
+```
+
+After the changes, the `src/app/hero-detail/hero-detail.component.ts` has the following content:
+
+```ts
+import { Component, OnInit } from '@angular/core'
+import { Hero } from '../hero'
+import { ActivatedRoute } from '@Angular/router'
+import { HeroService } from '../hero.service'
+import { Location } from '@angular/common'
+
+@Component({
+  selector: 'app-hero-detail',
+  templateUrl: './hero-detail.component.html',
+  styleUrls: ['./hero-detail.component.css'],
+})
+export class HeroDetailComponent implements OnInit {
+  hero: Hero
+
+  constructor(
+    private route: ActivatedRoute,
+    private heroService: HeroService,
+    private location: Location,
+  ) {}
+
+  ngOnInit() {
+    this.getHero()
+  }
+
+  private getHero() {
+    const id = this.route.snapshot.paramMap.get('id')
+    const getHero$ = this.heroService.getHero(Number(id))
+    getHero$.subscribe(hero => (this.hero = hero))
+  }
+
+  goBack(): void {
+    this.location.back()
+  }
 }
 ```
