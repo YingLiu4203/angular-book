@@ -61,9 +61,7 @@ To display a component when its path matches in an url, use the `router-outlet` 
 
 ```html
 <h1>{{title}}</h1>
-<nav>
-  <a routerLink="/heroes">Heroes</a>
-</nav>
+<nav><a routerLink="/heroes">Heroes</a></nav>
 <router-outlet></router-outlet>
 <app-messages></app-messages>
 ```
@@ -88,8 +86,124 @@ const routes: Routes = [
 
 The first path is the default path that matches `/`, the root url path. The `pathMatch: 'full'` means that it cannot have anything after the `'/'` because by default the empty string `''` matches any path as its prefix or suffix.
 
-## 5 Add a Detail View
+Use `ng g c dashboard` to create a new dashboard component. The template file has the following content:
+
+```html
+<h3>Top Heroes</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let hero of heroes" class="col-1-4">
+    <div class="module hero"><h4>{{hero.name}}</h4></div>
+  </a>
+</div>
+```
+
+The dashboard component class has the following code:
+
+```ts
+export class DashboardComponent implements OnInit {
+  heroes: Hero[] = []
+
+  constructor(private heroService: HeroService) {}
+
+  ngOnInit() {
+    this.getHeroes()
+  }
+
+  getHeroes(): void {
+    this.heroService.getHeroes().subscribe(heroes => (this.heroes = heroes.slice(1, 5)))
+  }
+}
+```
+
+Now add a dashboard link to the root component template, the `src/app/app.component.html` file has the following code:
+
+```html
+<nav><a routerLink="/dashboard">Dashboard</a> <a routerLink="/heroes">Heroes</a></nav>
+<router-outlet></router-outlet>
+```
+
+## 5 Navigating to Details
+
+Currently the deatil component is at the page bottom. It should be accessible via three methods:
+
+- By clicking a hero in the dashboard
+- By clicking a hero in the heroes list
+- By manually typing a "deep link" URL in the browser address bar.
+
+First, remove `<app-hero-detail>` element from the `heroes.component.html`. Then, add a hero detail route in `src/app/app-routing.module.ts`.
+
+```ts
+import { HeroDetailComponent }  from './hero-detail/hero-detail.component'
+
+{ path: 'detail/:id', component: HeroDetailComponent },
+```
+
+Add links in `src/app/dashboard/dashboard.component.html` as the following:
+
+```html
+<a *ngFor="let hero of heroes" routerLink="/detail/{{hero.id}}">
+  <div><h4>{{hero.name}}</h4></div>
+</a>
+```
+
+Change `src/app/heroes/heroes.component.html` as the following:
+
+```html
+<ul class="heroes">
+  <li *ngFor="let hero of heroes">
+    <a routerLink="/detail/{{hero.id}}"> <span class="badge">{{hero.id}}</span> {{hero.name}} </a>
+  </li>
+</ul>
+```
+
+Also remove `onSelect()` and `selectedHero` from the heroes component.
 
 ## 6 Get Router Parameter
 
+So far the hero id is embedded in the `routeLink`. A user may also input a url like `~/detail/11` in the browser's address bar. In `HeroDetailComponent`, you need to retrieve the hero id from the url using the following code:
+
+```ts
+constructor(
+  private route: ActivatedRoute,
+  private heroService: HeroService,
+  private location: Location
+) {}
+
+ngOnInit(): void {
+  this.getHero();
+}
+
+getHero(): void {
+  const id = +this.route.snapshot.paramMap.get('id');
+  this.heroService.getHero(id)
+    .subscribe(hero => this.hero = hero);
+}
+```
+
+Open HeroService and add this getHero() method:
+
+```ts
+getHero(id: number): Observable<Hero> {
+  // TODO: send the message _after_ fetching the hero
+  this.messageService.add(`HeroService: fetched hero id=${id}`);
+  return of(HEROES.find(hero => hero.id === id));
+}
+```
+
 ## 7 Find a Way Back
+
+Add a back button in hero deatils to let user go back.
+
+Add the following to the deatils html file:
+
+```html
+<button (click)="goBack()">go back</button>
+```
+
+Add the following code to the component class file:
+
+```ts
+goBack(): void {
+  this.location.back();
+}
+```
