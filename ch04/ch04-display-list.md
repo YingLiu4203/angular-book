@@ -42,9 +42,7 @@ In html, the `<ul>` and `<li>` are used to display an unordered list of items. A
 ```html
 <h2>My Heroes</h2>
 <ul class="heroes">
-  <li *ngFor="let hero of heroes">
-    <span class="badge">{{hero.id}}</span> {{hero.name}}
-  </li>
+  <li *ngFor="let hero of heroes"><span class="badge">{{hero.id}}</span> {{hero.name}}</li>
 </ul>
 ```
 
@@ -132,9 +130,7 @@ To display the selected hero, add the following line after the list of heroes (i
 <h2>{{selectedHero.name | uppercase}} Details</h2>
 <div><span>id: </span>{{selectedHero.id}}</div>
 <div>
-  <label>name:
-    <input [(ngModel)]="selectedHero.name" placeholder="name">
-  </label>
+  <label>name: <input [(ngModel)]="selectedHero.name" placeholder="name" /> </label>
 </div>
 ```
 
@@ -144,15 +140,11 @@ To fix this bug, you need the `*ngIf` directive. Again, the `*` prefix means tha
 
 ```html
 <div *ngIf="selectedHero">
-
   <h2>{{selectedHero.name | uppercase}} Details</h2>
   <div><span>id: </span>{{selectedHero.id}}</div>
   <div>
-    <label>name:
-      <input [(ngModel)]="selectedHero.name" placeholder="name">
-    </label>
+    <label>name: <input [(ngModel)]="selectedHero.name" placeholder="name" /> </label>
   </div>
-
 </div>
 ```
 
@@ -163,13 +155,11 @@ Now it is not clear which hero is the selected in the list. To give it a differe
 In this case, you want to add a `selected` class to the currently selected hero. The `selected` class style is defined in the local css file `heros.component.css`. Change the html `<li>` item in `heros.component.html` as the the following:
 
 ```html
-<li *ngFor="let hero of heroes"
-  [class.selected]="hero === selectedHero"
-  (click)="onSelect(hero)">
+<li *ngFor="let hero of heroes" [class.selected]="hero === selectedHero" (click)="onSelect(hero)">
   <span class="badge">{{hero.id}}</span> {{hero.name}}
 </li>
 ```
 
 Now the page should look like the following:
 
-![Heros list](./ch04-2.png)
+![Heros list](./firebase-01.png)
