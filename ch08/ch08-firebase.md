@@ -1,6 +1,6 @@
-# Firebase CRUD Demo Application
+# Install and Configure Firebase
 
-This chapter gives a step-by-step tutorial on creating a CRUD (Create, Read, Update, Delete) web application using Angular 7 and Firebase. [Firebase](https://firebase.google.com/) is a Backen-as-a-service (BaaS) that provides many functions such as authentication/storage/tracing etc for web and mobile application development.
+This chapter gives a step-by-step tutorial on Firebase installation and configuration. [Firebase](https://firebase.google.com/) is a Backen-as-a-service (BaaS) that provides many functions such as authentication/storage/tracing etc for web and mobile application development.
 
 ## 1 Setup Firebase
 
