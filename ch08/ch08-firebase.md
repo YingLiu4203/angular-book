@@ -175,3 +175,55 @@ Change the `src/app/app.component.html` to use the routes.
 
 <router-outlet></router-outlet>
 ```
+
+## 5 Install and Configure Angular Material
+
+[Angular Material](https://material.angular.io/) is a component library created by Angular team.
+
+First install Angular Material using Angular CLI: `ng add @angular/material`.
+
+Then imports material modules used by your application in `src/app/app.module.ts`:
+
+```ts
+// Angular Material needs this
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+import {
+  MatInputModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatTableModule,
+  MatIconModule,
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+} from '@angular/material'
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+```
+
+Import forms module `import { FormsModule, ReactiveFormsModule } from '@angular/forms'`.
+
+Then register above modules in the `@NgModule` imports. It has the following content:
+
+```ts
+imports: [
+    BrowserModule,
+    RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+  ],
+```
