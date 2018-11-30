@@ -200,10 +200,10 @@ import {
   MatFormFieldModule,
 } from '@angular/material'
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms'
 ```
 
-Import forms module `import { FormsModule, ReactiveFormsModule } from '@angular/forms'`.
+Import reactive forms module `import { ReactiveFormsModule }` from '@angular/forms'`.
 
 Then register above modules in the `@NgModule` imports. It has the following content:
 
@@ -213,7 +213,6 @@ imports: [
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatInputModule,
@@ -227,3 +226,90 @@ imports: [
     MatFormFieldModule,
   ],
 ```
+
+## 6 The Firebase Services
+
+First you should create a service to implement the CRUD functions that manipulate the Firestore - a Firebase database.
+
+Use CLI command `ng g service firestore` and edit it to have the following code:
+
+```ts
+import { Injectable } from '@angular/core'
+
+import { Observable, from } from 'rxjs'
+import { map } from 'rxjs/operators'
+
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore'
+
+export interface Board {
+  id?: string
+  author: string
+  description: string
+  title: string
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class FirestoreService {
+  private boardCollection: AngularFirestoreCollection<Board>
+
+  constructor(private afs: AngularFirestore) {
+    this.boardCollection = afs.collection<Board>('books')
+  }
+
+  getBoards(): Observable<Board[]> {
+    return this.boardCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data()
+          const id = a.payload.doc.id
+          return { id, ...data }
+        }),
+      ),
+    )
+  }
+
+  getBoard(id: string): Observable<any> {
+    return this.boardCollection.doc(id).valueChanges()
+  }
+
+  postBoard(board: Board) {
+    return from(this.boardCollection.add(board).then(data => data.id))
+  }
+
+  updateBoards(id: string, board: Board) {
+    const doc = this.boardCollection.doc(id)
+    return from(doc.update(board))
+  }
+
+  deleteBoards(id: string) {
+    const doc = this.boardCollection.doc(id)
+    return from(doc.delete())
+  }
+}
+```
+
+The above code uses [AngularFireStore Collection API](https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md) to get the list of all boards. It uses the [`snapshotChanges()`](https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md#snapshotchanges) method to get the document Id that will be used in HTML. Other methods uses [AngularFireStore Document API](https://github.com/angular/angularfire2/blob/master/docs/firestore/documents.md) to implement the creation, update and deletion opertaions.
+
+## 7 The CRUD Operations
+
+### 7.1 The List of Boards
+
+The list of boards page uses the [`<table mat-table>`](https://material.angular.io/components/table/overview) to display a data table. The data table element requires a `[dataSource]` attribute that could be an array or an oberservable of array. Using an observable lets the data table observe the data changes. Each table row also defines a `[routerLink]` attribute that works as a link to the detail page. The links requires the document id to point to the specific document.
+
+### 7.2 The Detail/Delete Page
+
+The detail page gets the documnet id from it route parameter using `this.route.snapshot.params['id']`. Then it calls the Firebase service to get the document details.
+
+The page has a delete icon that when clicked, calls the Firebase service `delete` method to delete the document and navigates to the list page.
+
+The edit icon links to the edit page.
+
+### 7.3 The Edit Page
+
+The edit page uses [Angular reactive form](https://angular.io/guide/reactive-forms) to edit the board fields. When the submit button is clicked, it updates the board and navigates to the list page.
+
+### 7.4 The Create Page
+
+Similar to the edit page, the create page uses reactive form to create a board document and saves it to the Firebase backend. All fields are required. If a field is empty, it displays an error message.
