@@ -1,5 +1,7 @@
 # Install and Configure Firebase
 
+The completed source code is [https://github.com/csulbying/firebase-demo](https://github.com/csulbying/firebase-demo).
+
 This chapter gives a step-by-step tutorial on Firebase installation and configuration. [Firebase](https://firebase.google.com/) is a Backen-as-a-service (BaaS) that provides many functions such as authentication/storage/tracing etc for web and mobile application development.
 
 ## 1 Setup Firebase
