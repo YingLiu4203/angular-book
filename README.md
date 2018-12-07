@@ -22,4 +22,4 @@ The completed source code is in [https://github.com/YingLiu4203/Tour-of-Hereos-T
 
 [Chapter 8 Firebase](./ch08/ch08-firebase.md)
 
-[Appendix Deploy to Netlify](./appdenix/deploy-to-netlify.md)
+[Appendix Deploy to Netlify](./appendix/deploy-to-netlify.md)
