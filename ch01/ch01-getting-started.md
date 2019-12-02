@@ -1,8 +1,6 @@
 # Chapter 1: Getting Started
 
-This book is an attempt to present the "official" Angular [Tour of Hereos Tutorial](https://angular.io/tutorial) in a step-by-step easy-to-understand way. The book is mostly based on the [official Angular docmentation](https://angular.io/docs) and used the same MIT license. Most code, if not all, are directly copied from the Angular documentation web site.
-
-This book follows the [Angular Tour of Heroes Tutorial](https://angular.io/tutorial) to develop the "Tour of Heros" application. During the process, related Angular concepts are introduced.
+This book is an attempt to present the "official" Angular [Tour of Hereos Tutorial](https://angular.io/tutorial) in a step-by-step easy-to-understand way. It is mostly based on the [official Angular docmentation](https://angular.io/docs) and used the same MIT license. Most code are directly copied from the Angular documentation web site. During the development process, related Angular concepts are introduced.
 
 ## 1 Introduction
 
@@ -30,15 +28,15 @@ Getting started with Angular is an easy 3-step process.
 
 ### Step 1. Install the Angular CLI
 
-Make sure you have Node.js installed and available with commands `node -v` and `npm -v`. Angular nees Node.js version v8.x or greater, npm version 5.x or greater.
+Make sure you have Node.js installed and available with commands `node -v` and `npm -v`. Angular needs Node.js, a JavaScript engine, and npm, a package management tool, to manage the development environment.
 
-Then open a terminal and install the Angular CLI globally with command: `npm install -g @angular/cli`. Use `ng version` to verify that it is installed successfuly.
+Then open a terminal and install the Angular CLI globally with command: `npm install -g @angular/cli`. Use `ng version` to verify that it is installed successfuly. Sometimes it requires adminstrator's previvilge to install a package, in that case, try `sudo npm install -g @angular/cli` to install the package as an administrator. You need to type your password again to run the `sudo` command the first time you run it.
 
-### Step 2. Create a new project
+### Step 2. Create a New Workspace
 
-Use `ng new angular-tour-of-heroes` will create a new web project. Answer `N` (No) to not add Angular routing and select `CSS` as the stylesheet format.
+Angular development is based on the concept of a workspace. A workspace is a folder that holds all required files for an Angluar application. Use `ng new angular-tour-of-heroes` will create a new workspace in a folder named after the project name. Press teh `Enter` key to accept the defaults, i.e., don't add Angular routing and use CSS stylesheet.
 
-The project is a client-side application with default settings and a sample home page in a newly-created folder. The folder has the same name as the new project name. The new project name is the string after the `ng new` command. In a real project, you may want to change the `angular-tour-of-heroes` to a more meaningful name.
+The workspace has all the files of a client-side application with default settings and a sample home page. The newly created folder has the same name as the new workspace name. The new workspace name is the string after the `ng new` command. In a real application, you may want to change the `angular-tour-of-heroes` to a more meaningful name.
 
 The command not only creates all folder/files, but also install NPM packages required by an Angular application.
 
@@ -51,8 +49,6 @@ cd angular-tour-of-heroes
 ng serve --open
 ```
 
-The `ng serve` command builds the application and uses the Angular CLI's built-in web server to serve the web application. The `--open` (or `just -o`) option opens a browser (or a browser tab) on `http://localhost:4200/`. The page is similar to the following:
-
-![new Angular project](./ch01-1.png)
+The `ng serve` command builds the application and uses the Angular CLI's built-in web server to serve the web application. The `--open` (or `just -o`) option opens a browser (or a browser tab) on `http://localhost:4200/`.
 
 Congratulations! Your first Angular application is up and running.
