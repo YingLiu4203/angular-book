@@ -63,7 +63,6 @@ To display a component when its path matches in an url, use the `router-outlet` 
 <h1>{{title}}</h1>
 <nav><a routerLink="/heroes">Heroes</a></nav>
 <router-outlet></router-outlet>
-<app-messages></app-messages>
 ```
 
 Now the home page `/` only has a title. When you change the url to `/heroes`, you can see the list of heroes.
@@ -144,20 +143,11 @@ import { HeroDetailComponent }  from './hero-detail/hero-detail.component'
 { path: 'detail/:id', component: HeroDetailComponent },
 ```
 
-Add links in `src/app/dashboard/dashboard.component.html` as the following:
-
-```html
-<h3>Top Heroes</h3>
-<ul>
-  <li *ngFor="let hero of heroes"><a routerLink="/detail/{{hero.id}}">{{ hero.name }}</a></li>
-</ul>
-```
-
 Change `src/app/heroes/heroes.component.html` as the following:
 
 ```html
 <h2>My Heroes</h2>
-<ul>
+<ul class="heroes">
   <li *ngFor="let hero of heroes">
     <a routerLink="/detail/{{hero.id}}"> {{ hero.id }} {{ hero.name }}</a>
   </li>

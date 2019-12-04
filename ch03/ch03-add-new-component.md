@@ -44,7 +44,7 @@ export class HeroesComponent implements OnInit {
 }
 ```
 
-In this component class file, you first import classes/interfaces used by the current component. Then use `@Component({...})` to define meta-data for the component. The `templateUrl` and `styleUrls` are obvious: they point to the HTML template file and the style files. The `selector: 'app-heroes'` meta-data defines the HTML tag name used by other components to include this component in their views. To use it in the root component, edit `Aapp.component.html` to have the following content:
+In this component class file, you first import classes/interfaces used by the current component. Then use `@Component({...})` to define meta-data for the component. The `templateUrl` and `styleUrls` are obvious: they point to the HTML template file and the style files. The `selector: 'app-heroes'` meta-data defines the HTML tag name used by other components to include this component in their views. To use it in the root component, edit `App.component.html` to have the following content:
 
 ```html
 <h1>{{title}}</h1>
@@ -75,8 +75,9 @@ Two-way binding is a big feature of Angular and it is not a surprise that it is 
 
 ```html
 <div>
-  <label>name:
-    <input [(ngModel)]="hero.name" placeholder="name">
+  <label
+    >name:
+    <input [(ngModel)]="hero.name" placeholder="name" />
   </label>
 </div>
 ```

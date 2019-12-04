@@ -31,7 +31,7 @@ export class HeroService {
 
 ## 2 Inject the Service
 
-Angular uses constructor injection that provides a `HeroService` parameter in the component class constructor to get it injected: `constructor(private heroService: HeroService) { }`. After this, you can use the `this.heroService` anywhere in the component.
+Angular uses constructor injection that provides a `HeroService` parameter in the component class constructor to get it injected. In `heroes.component.ts` file, first import the service `import {HeroService} from '../hero.service'`, then use the constructor in class definition: `constructor(private heroService: HeroService) { }`. After this, you can use the `this.heroService` anywhere in the component.
 
 Create a method to use the service in the component class as the following:
 
@@ -82,7 +82,7 @@ To use the data, subscribe to the observable in the heroes component class as th
 
 ```ts
 getHeroes(): void {
-  const heors$ = this.heroService.getHeroes();
+  const heros$ = this.heroService.getHeroes();
   heros$.subscribe(heroes => this.heroes = heroes)
 }
 ```
